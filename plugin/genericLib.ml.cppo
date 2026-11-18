@@ -84,7 +84,7 @@ let gInject s =
   CAst.make @@ CRef (qualid_of_string s, None)
 
 #if COQ_VERSION >= (8, 20, 0)
-let gType0 = CAst.make @@ CSort Constrexpr_ops.expr_Type_sort
+let gType0 = CAst.make @@ CSort (Constrexpr_ops.expr_Type_sort_gen None)
 #elif COQ_VERSION >= (8, 19, 0)
 let gType0 = CAst.make @@ CSort (Glob_term.UAnonymous {rigid = UState.UnivRigid})
 #else
@@ -1333,7 +1333,6 @@ let define_new_inductive (ty_ctr, ty_params, ctrs, typ) =
     ; mind_entry_params = []
     ; mind_entry_inds = [ oie ]
     ; mind_entry_universes = Entries.Monomorphic_ind_entry 
-    ; mind_entry_variance  = None
     ; mind_entry_private   = None
     } in
   let env = Global.env () in
